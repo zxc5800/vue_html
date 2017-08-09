@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>test-vue</title>
-	<script src="https://unpkg.com/vue"></script>
+	<title>vue_test</title>
+	<script src="vue-dev/dist/vue.js"></script>
 </head>
 <body>
-
+	<div id="app">
+		{{message}}
+	</div>
 	<script>
-
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				message: 'this is my vue world'
+			}
+		})
 	</script>
 </body>
 </html>
