@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算器</title>
+	<script src="vue-dev/dist/vue.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		input{
+			border-radius: 5px;
+			margin-left: 10px;
+			font-size: 18px;
+		}
+		#app button{
+			background: #fff;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 14px;
+			margin: 5px;
+			outline: none;
+		}
+		#app button:hover{
+			background: #959595;
+			color: #fff;
+		}
+		.sum{
+			padding: 10px;
+			border: 1px solid #ccc;
+		} 
+		.total{
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
+		.total div,
+		.total_sum div{
+			padding: 5px;
+		}
+		.total_sum{
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<main id="app">
+		<button type="button" v-on:click='add'>add</button>
+		<button type="button" v-on:click='total_sum'>total_sum</button>
+
+		<div class="sum">
+			<label>支付价<input type="text" v-model="sum"></label>
+		</div>
+		<div class="total">
+			<div v-for="people in peoples">
+				<label>
+					名称<input type="text" v-model="people.name">
+				</label>
+				<label>
+					价格<input type="text" v-model="people.price">
+				</label>
+				<label>
+					其他<input type="text" v-model="people.other">
+				</label>
+			</div>
+		</div>
+		<div class="total_sum">
+			<p v-for="(people, index) in peoples">
+				{{index}}:  名称: {{people.name}}    应付价格{{people.now_price}}
+			</p>
+		</div>
+	</main>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				peoples: [
+					{
+						name:' ',
+						price:0,
+						other:' ',
+						now_price:0
+					}
+				],
+				sum:0
+			},
+			methods:{
+				add: function(){
+					this.peoples.push({name:' ', price:0, other:' ', now_price:0});
+				},
+				total_sum:function(){
+					var old_sum = 0;
+					for(let i=0; i<this.peoples.length;i++){
+						old_sum = parseFloat(old_sum) + parseFloat(this.peoples[i].price);
+					}
+					for(let i=0; i<this.peoples.length;i++){
+						this.peoples[i].now_price = ((this.peoples[i].price/old_sum) * this.sum).toFixed(2);
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
