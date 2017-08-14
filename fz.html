@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		(function(window,document){
+			var MaskShare = function(targetDom, options){
+				// 判断用函数创建还是new创建.
+				// 通过MaskShare('dom')或new MaskShare('dom')来使用
+				if(!(this instanceof MaskShare)){
+					return new MaskShare(targetDom, options);
+				};
+				// 参数合并
+				this.options = this.extend({
+					imgSrc: "..."
+				}, options);
+
+				// 判断传的是dom还是字符串
+				if((typeoftargetDom) === 'string'){
+					this.targetDom = document.querySelector(targetDom);
+				}else{
+					this.targetDom = targetDom;
+				}
+
+				var boxDom = document.createElement("div");
+				var imgDom = document.createElement("img");
+
+				boxDom.style.cssText = "dispaly: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 9999;";
+				imgDom.style.cssText = "margin-top: 20px; width: 100%;";
+				
+			};
+
+			MaskShare.prototype = {};
+
+			window.MaskShare = MaskShare;
+		}(window,document))
+
+
+	</script>
+</body>
+</html>
